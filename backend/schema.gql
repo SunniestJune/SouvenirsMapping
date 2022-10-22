@@ -1,0 +1,43 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreatePinInput {
+  """Latitude of the Pin"""
+  lat: Float!
+
+  """Longitude of the Pin"""
+  long: Float!
+}
+
+type Mutation {
+  createPin(pin: CreatePinInput!): Pin!
+  removePin(id: Int!): Pin!
+  updatePin(updatePinInput: UpdatePinInput!): Pin!
+}
+
+type Pin {
+  """Id of the pin"""
+  id: Int!
+
+  """Latitude coordinates of the pin"""
+  lat: Float!
+
+  """Longitude coordinates of the pin"""
+  long: Float!
+}
+
+type Query {
+  pin(id: Int!): Pin!
+  pins: [Pin!]!
+}
+
+input UpdatePinInput {
+  id: Int!
+
+  """Latitude of the Pin"""
+  lat: Float
+
+  """Longitude of the Pin"""
+  long: Float
+}

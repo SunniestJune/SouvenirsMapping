@@ -1,7 +1,10 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import {InputType, Field, Float} from '@nestjs/graphql';
 
 @InputType()
 export class CreatePinInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => Float, { description: 'Longitude of the Pin' })
+  long: number;
+
+  @Field(() => Float, { description: 'Latitude of the Pin' })
+  lat: number;
 }

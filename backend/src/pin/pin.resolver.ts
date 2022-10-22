@@ -9,11 +9,11 @@ export class PinResolver {
   constructor(private readonly pinService: PinService) {}
 
   @Mutation(() => Pin)
-  createPin(@Args('createPinInput') createPinInput: CreatePinInput) {
-    return this.pinService.create(createPinInput);
+  createPin(@Args('pin') pin: CreatePinInput) {
+    return this.pinService.create(pin);
   }
 
-  @Query(() => [Pin], { name: 'pin' })
+  @Query(() => [Pin], { name: 'pins' })
   findAll() {
     return this.pinService.findAll();
   }

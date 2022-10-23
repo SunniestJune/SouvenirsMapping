@@ -3,34 +3,54 @@ import {CreatePinInput} from './dto/create-pin.input';
 import {UpdatePinInput} from './dto/update-pin.input';
 import {PrismaService} from "../prisma.service";
 import {Pin} from "@prisma/client";
+import {PaginatedPins} from "./entities/pin.entity";
 
 @Injectable()
 export class PinService {
   constructor(private prisma: PrismaService) {}
 
   async create(data: CreatePinInput): Promise<Pin> {
-    return this.prisma.pin.create({data});
-  }
+    const now = Date.now();
 
-  findAll(): [Pin] {
-    return [
-      {
-        id: "1",
-        long: 2.5,
-        lat: 2.5
+    return this.prisma.pin.create({
+      data: {
+        ...data,
+        creationDate: now,
+        updatedDate: now,
       }
-    ];
+    });
   }
 
-  findOne(id: number) {
+  async findAll(cursor?: string, pageSize?: number): Promise<PaginatedPins> {
+    const take: number = pageSize ?? 10;
+    const items = await this.prisma.pin.findMany({
+      take,
+      cursor: cursor ? {
+        id: cursor
+      } : undefined,
+    });
+
+    return {
+      items,
+      cursor: items[items.length - 1].id,
+      hasNextPage: items.length == take,
+    }
+  }
+
+  findOne(id: string) {
     return `This action returns a #${id} pin`;
   }
 
-  update(id: number, updatePinInput: UpdatePinInput) {
-    return `This action updates a #${id} pin`;
+  async update(id: string, data: UpdatePinInput) {
+    return this.prisma.pin.update({
+      where: {
+        id: id,
+      },
+      data
+    });
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return `This action removes a #${id} pin`;
   }
 }

@@ -11,7 +11,9 @@ datasource db {
 }
 
 model Pin {
-  id   String  @id @default(auto()) @map("_id") @db.ObjectId
-  long Float
-  lat  Float?
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  long              Float
+  lat               Float
+  creationDate      Float   @default(0)
+  updatedDate       Float   @default(0)
 }

@@ -12,29 +12,39 @@ input CreatePinInput {
 
 type Mutation {
   createPin(pin: CreatePinInput!): Pin!
-  removePin(id: Int!): Pin!
-  updatePin(updatePinInput: UpdatePinInput!): Pin!
+  removePin(id: String!): Pin!
+  updatePin(id: String!, pin: UpdatePinInput!): Pin!
+}
+
+type PaginatedPins {
+  cursor: String!
+  hasNextPage: Boolean!
+  items: [Pin!]!
 }
 
 type Pin {
+  """Creation date of the pin"""
+  creationDate: Float!
+
   """Id of the pin"""
-  id: Int!
+  id: String!
 
   """Latitude coordinates of the pin"""
   lat: Float!
 
   """Longitude coordinates of the pin"""
   long: Float!
+
+  """Update date of the pin"""
+  updatedDate: Float!
 }
 
 type Query {
-  pin(id: Int!): Pin!
-  pins: [Pin!]!
+  pin(id: String!): Pin!
+  pins(cursor: String, pageSize: Int): PaginatedPins!
 }
 
 input UpdatePinInput {
-  id: Int!
-
   """Latitude of the Pin"""
   lat: Float
 

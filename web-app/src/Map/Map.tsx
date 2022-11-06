@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
+import Markers from "./Markers/Markers";
+
 import "./Map.css";
 
 interface Props {}
@@ -16,6 +18,7 @@ const Map: React.FC<Props> = (props: Props) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      <Markers></Markers>
     </MapContainer>
   );
 };
